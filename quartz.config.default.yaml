@@ -199,7 +199,10 @@ plugins:
       links:
         Powered by Quartz: https://quartz.jzhao.xyz
   - source: github:quartz-community/recent-notes
-    enabled: false
+    enabled: true
+    layout:
+      position: afterBody
+      priority: 10
   - source: github:quartz-community/spacer
     enabled: true
     options: {}
