@@ -1,13 +1,12 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Quartz 5
+  pageTitle: Akira's Notes
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
-  analytics:
-    provider: plausible
-  locale: en-US
-  baseUrl: quartz.jzhao.xyz
+  analytics: null
+  locale: ja-JP
+  baseUrl: g-ctus.github.io/note
   ignorePatterns:
     - private
     - templates
@@ -198,8 +197,7 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        Powered by Quartz: https://quartz.jzhao.xyz
   - source: github:quartz-community/recent-notes
     enabled: false
   - source: github:quartz-community/spacer
