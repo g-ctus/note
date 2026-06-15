@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=./quartz/plugins/quartz-plugins.schema.json
 configuration:
-  pageTitle: Akira's Notes
+  pageTitle: Temet Nosce
   pageTitleSuffix: ""
   enableSPA: true
   enablePopovers: true
@@ -219,7 +219,6 @@ plugins:
       includedProperties:
         - description
         - tags
-        - aliases
       excludedProperties: []
       hidePropertiesView: false
       delimiters: ---
