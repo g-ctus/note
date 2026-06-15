@@ -12,13 +12,28 @@
   }
 }
 
-// Tag page: smaller font for related tags in sidebar
-.tag-page .sidebar.right {
-  font-size: 0.8rem;
+// Tag page listing: wider tag column + smaller font
+.page-listing {
+  ul.section-ul {
+    .section-li .section {
+      // Give tags more room by adjusting the grid/flex layout
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
 
-  .tag-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+      ul.tags {
+        font-size: 0.7rem;
+        flex: 1 1 auto;
+        min-width: 200px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 0.5rem;
+
+        li {
+          white-space: nowrap;
+        }
+      }
+    }
   }
 }
