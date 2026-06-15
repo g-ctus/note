@@ -11,44 +11,61 @@
     width: fit-content;
   }
 
-  // Hide comma separators when stacked vertically
   .note-properties-separator {
     display: none;
   }
 }
 
-// Hide internal/meta tags everywhere (properties, tag lists, tag pages)
+// Hide internal/meta tags everywhere
+// created/*, permanent, publish/*, and YYYY/MM/DD date tags
 a.tag-link[href*="/tags/created"],
 a.tag-link[href*="/tags/permanent"],
-a.tag-link[href*="/tags/publish"] {
+a.tag-link[href*="/tags/publish"],
+a.tag-link[href$="/tags/2024"],
+a.tag-link[href$="/tags/2025"],
+a.tag-link[href$="/tags/2026"],
+a.tag-link[href*="/tags/2024/"],
+a.tag-link[href*="/tags/2025/"],
+a.tag-link[href*="/tags/2026/"] {
   display: none !important;
 
-  // Also hide adjacent comma separator
   & + .note-properties-separator {
     display: none !important;
   }
 }
 
-// In tag list (ul.tags), hide the li containing these tags
+// Same for ul.tags li wrappers
 ul.tags li:has(a[href*="/tags/created"]),
 ul.tags li:has(a[href*="/tags/permanent"]),
-ul.tags li:has(a[href*="/tags/publish"]) {
+ul.tags li:has(a[href*="/tags/publish"]),
+ul.tags li:has(a[href$="/tags/2024"]),
+ul.tags li:has(a[href$="/tags/2025"]),
+ul.tags li:has(a[href$="/tags/2026"]),
+ul.tags li:has(a[href*="/tags/2024/"]),
+ul.tags li:has(a[href*="/tags/2025/"]),
+ul.tags li:has(a[href*="/tags/2026/"]) {
   display: none !important;
 }
 
-// Tag page listing: horizontal tags, smaller font
-.page-listing {
-  ul.section-ul {
-    .section-li .section {
-      ul.tags {
-        font-size: 0.7rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25rem 0.5rem;
+// Recent notes / tag page listing: horizontal tags, small font
+.page-listing ul.section-ul .section-li .section,
+.recent-notes ul.section-ul .section-li .section {
+  ul.tags {
+    font-size: 0.65rem;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.4rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-        li {
-          white-space: nowrap;
-        }
+    li {
+      white-space: nowrap;
+      list-style: none;
+
+      &::marker {
+        content: none;
       }
     }
   }
