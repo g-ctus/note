@@ -1,14 +1,19 @@
 @use "./variables.scss" as *;
 
-// Tags: vertical layout instead of horizontal
-.note-properties .tags {
+// Note properties: tags vertical stack
+.note-properties-tags {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  flex-wrap: nowrap;
 
-  a {
+  a.tag-link {
+    display: inline-block;
     width: fit-content;
+  }
+
+  // Hide comma separators when stacked vertically
+  .note-properties-separator {
+    display: none;
   }
 }
 
@@ -16,7 +21,6 @@
 .page-listing {
   ul.section-ul {
     .section-li .section {
-      // Give tags more room by adjusting the grid/flex layout
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
