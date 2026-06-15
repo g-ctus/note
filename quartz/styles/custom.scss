@@ -34,7 +34,6 @@ a.tag-link[href*="/tags/2026/"] {
   }
 }
 
-// Same for ul.tags li wrappers
 ul.tags li:has(a[href*="/tags/created"]),
 ul.tags li:has(a[href*="/tags/permanent"]),
 ul.tags li:has(a[href*="/tags/publish"]),
@@ -47,18 +46,39 @@ ul.tags li:has(a[href*="/tags/2026/"]) {
   display: none !important;
 }
 
-// Recent notes / tag page listing: horizontal tags, small font
-.page-listing ul.section-ul .section-li .section,
-.recent-notes ul.section-ul .section-li .section {
+// Listing entries: move tags below title (override 3-column grid)
+li.section-li > .section {
+  display: grid !important;
+  grid-template-columns: fit-content(8em) 1fr !important;
+  grid-template-rows: auto auto;
+  gap: 0 !important;
+
+  // Date: first column, first row
+  .meta {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: start;
+  }
+
+  // Title: second column, first row
+  .desc {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  // Tags: second column, second row (below title)
   ul.tags {
-    font-size: 0.65rem;
+    grid-column: 2;
+    grid-row: 2;
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: wrap;
-    gap: 0.2rem 0.4rem;
+    gap: 0.15rem 0.4rem;
+    font-size: 0.6rem;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0.2rem 0 0 0;
+    opacity: 0.7;
 
     li {
       white-space: nowrap;
