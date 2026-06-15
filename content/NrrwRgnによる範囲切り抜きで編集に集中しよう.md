@@ -3,6 +3,7 @@ title: NrrwRgnによる範囲切り抜きで編集に集中しよう
 created: 2026-04-12
 ID: 20260412091638
 tags:
+  - created/2026-04-12
   - PERMANENT
   - vim
   - vim/dein

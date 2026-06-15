@@ -3,6 +3,7 @@ title: kensaku-vimによるローマ字入力で日本語検索
 created: 2026-04-27
 ID: 20260427054225
 tags:
+  - created/2026-04-27
   - PERMANENT
   - vim/dein
   - vim/denops

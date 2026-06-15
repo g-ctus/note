@@ -4,6 +4,7 @@ created: 2026-01-15 15:30
 title: Neovimでstatuslineを完全に非表示にする方法
 aliases: []
 tags:
+  - created/2026-01-15
   - 2026/01/15
   - PERMANENT
   - Neovim

@@ -3,6 +3,7 @@ title: LSP管理をMasonからnixへ移行
 created: 2026-04-23
 ID: 20260423090203
 tags:
+  - created/2026-04-23
   - PERMANENT
   - neovim
   - lsp

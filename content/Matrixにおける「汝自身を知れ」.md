@@ -3,6 +3,7 @@ title: Matrixにおける「汝自身を知れ」
 created: 2026-04-14
 ID: 20260414125957
 tags:
+  - created/2026-04-14
   - PERMANENT
   - コンテンツレビュー/映画
   - Publish/private
