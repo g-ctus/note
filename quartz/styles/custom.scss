@@ -17,19 +17,31 @@
   }
 }
 
-// Tag page listing: wider tag column + smaller font
+// Hide internal/meta tags everywhere (properties, tag lists, tag pages)
+a.tag-link[href*="/tags/created"],
+a.tag-link[href*="/tags/permanent"],
+a.tag-link[href*="/tags/publish"] {
+  display: none !important;
+
+  // Also hide adjacent comma separator
+  & + .note-properties-separator {
+    display: none !important;
+  }
+}
+
+// In tag list (ul.tags), hide the li containing these tags
+ul.tags li:has(a[href*="/tags/created"]),
+ul.tags li:has(a[href*="/tags/permanent"]),
+ul.tags li:has(a[href*="/tags/publish"]) {
+  display: none !important;
+}
+
+// Tag page listing: horizontal tags, smaller font
 .page-listing {
   ul.section-ul {
     .section-li .section {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.5rem;
-
       ul.tags {
         font-size: 0.7rem;
-        flex: 1 1 auto;
-        min-width: 200px;
         display: flex;
         flex-wrap: wrap;
         gap: 0.25rem 0.5rem;
