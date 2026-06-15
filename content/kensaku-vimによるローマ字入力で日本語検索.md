@@ -9,6 +9,7 @@ tags:
   - Publish/private
 media:
 aliases:
+date: 2026-04-27
 ---
 [vim-kensaku-search](https://github.com/lambdalisue/vim-kensaku-search.git)を導入して，vimでローマ字検索できるようにする．
 なおdein.vimで遅延読み込みさせる設定も示す．

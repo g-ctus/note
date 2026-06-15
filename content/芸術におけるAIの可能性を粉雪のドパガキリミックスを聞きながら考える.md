@@ -10,6 +10,7 @@ tags:
   - Publish/private
 media:
 aliases:
+date: 2026-06-14
 ---
 NORINORI REMIXと題して，J-POPを今時のEDM風REMIXを投稿しているチャンネルがある．
 特に粉雪には謎の中毒性がある.原曲のカケラもないイントロから,次第にハチャメチャなREMIXと分かり味わい深い．原曲の良いところの再発見にもつながる．

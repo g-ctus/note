@@ -8,6 +8,7 @@ tags:
   - Publish/private
 media:
 aliases:
+date: 2026-04-14
 ---
 
 映画[[マトリックス|Matrix]]では、オラクル（預言者）の家の台所の扉の上には`Temet Nosce (ラテン語で「汝自身を知れ」の意味)`と書かれた標識？が掲げられている。

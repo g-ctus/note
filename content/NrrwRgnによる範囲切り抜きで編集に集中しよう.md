@@ -10,6 +10,7 @@ tags:
   - Publish/private
 media:
 aliases:
+date: 2026-04-12
 ---
 文章を書くとき、ファイル全体から部分単位を切り抜いて集中して編集したいときがある。
 そういうときには[NrrwRgn](https://github.com/chrisbra/NrrwRgn)を使えば良い。

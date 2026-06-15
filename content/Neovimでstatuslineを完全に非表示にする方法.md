@@ -9,6 +9,7 @@ tags:
   - Neovim
   - dotfiles
   - Publish/private
+date: 2026-01-15
 ---
 
 ## 背景

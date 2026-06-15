@@ -10,6 +10,7 @@ tags:
   - Publish/private
 media:
 aliases:
+date: 2026-04-23
 ---
 
 Language Server Protocol (LSP) をneovimで手っ取り早く使うため，LSPインストールを[mason.nvim](https://github.com/mason-org/mason.nvim)で行うのが主流かと思います．しかし[Masonで管理されているLSPはnixとの親和性が悪い](https://qiita.com/Sumi-Sumi/items/eda5894c0918f15ba971)ことが報告されています．

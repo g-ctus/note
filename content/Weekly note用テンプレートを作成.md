@@ -9,6 +9,7 @@ tags:
   - Publish/private
 media:
 aliases:
+date: 2026-04-29
 ---
 
 [[weekly-note|weekly note用テンプレート]]を作成した．
