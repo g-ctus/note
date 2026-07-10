@@ -2,75 +2,116 @@
 # ============================================================
 # patch-graph.sh — Fix Japanese URL encoding + add dangling node support
 #
-# Patches the graph plugin after `npx quartz plugin install`.
+# Patches the COMPILED graph plugin dist after `npx quartz plugin install`.
+# The graph code is pre-bundled as a string literal in dist/components/index.js,
+# so we must patch dist/ (not src/) for the changes to take effect.
+#
 # Must run BEFORE `npx quartz build`.
 # ============================================================
 set -eo pipefail
 
-GRAPH_FILE=".quartz/plugins/graph/src/components/scripts/graph.inline.ts"
+DIST_FILE=".quartz/plugins/graph/dist/components/index.js"
 
-if [[ ! -f "$GRAPH_FILE" ]]; then
-    echo "WARN: Graph plugin file not found at $GRAPH_FILE, skipping patch"
+if [[ ! -f "$DIST_FILE" ]]; then
+    echo "WARN: Graph plugin dist file not found at $DIST_FILE, skipping patch"
     exit 0
 fi
 
-echo "Patching graph plugin for Japanese URL support and dangling nodes..."
+echo "Patching graph plugin dist for Japanese URL support and dangling nodes..."
 
-# Use node.js for reliable patching of complex JavaScript
 node -e "
 const fs = require('fs');
-let code = fs.readFileSync('$GRAPH_FILE', 'utf8');
+let code = fs.readFileSync('$DIST_FILE', 'utf8');
+let patchCount = 0;
 
-// --- Patch 1: Decode URI in getSlugFromUrl ---
-// Fix: window.location.pathname returns percent-encoded Japanese text
-code = code.replace(
-  'var slug = getFullSlugFromUrl();',
-  'var slug = decodeURIComponent(getFullSlugFromUrl());'
-);
+// === Patch 1: Decode URI in getSlugFromUrl ===
+// The minified getSlugFromUrl function:
+//   function u(){var a=we(), ...}
+// we() returns window.location.pathname (percent-encoded for Japanese)
+// Fix: wrap with decodeURIComponent
+const oldSlugFn = 'function u(){var a=we()';
+const newSlugFn = 'function u(){var a=decodeURIComponent(we())';
+if (code.includes(oldSlugFn)) {
+    code = code.replace(oldSlugFn, newSlugFn);
+    patchCount++;
+    console.log('  [1/5] URL decoding: patched');
+} else {
+    console.log('  [1/5] URL decoding: pattern not found, SKIPPED');
+}
 
-// --- Patch 2: Add dangling link nodes (gray nodes for non-existent links) ---
-// Insert dangling-link collection code before the neighbourhood construction
-const danglingCode = \`
-      // --- Dangling links: collect link targets not in contentIndex ---
-      var danglingNodes = new Set();
-      data.forEach(function (details, source) {
-        var outgoing = details.links || [];
-        for (var i = 0; i < outgoing.length; i++) {
-          var dest = simplifySlug(outgoing[i]);
-          if (!validLinks.has(dest)) {
-            danglingNodes.add(dest);
-            links.push({ source: source, target: dest });
-          }
-        }
-      });
+// === Patch 2: Also collect dangling links ===
+// Original: Xu.has(v)&&tu.push({source:l,target:v})
+// This only adds links to valid (existing) targets.
+// We also need to track dangling targets.
+// We initialize danglingNodes set before the forEach, and add non-valid targets.
+const oldLinkCheck = 'Xu.has(v)&&tu.push({source:l,target:v})';
+const newLinkCheck = 'if(Xu.has(v)){tu.push({source:l,target:v})}else{_danglingNodes.add(v);tu.push({source:l,target:v})}';
+if (code.includes(oldLinkCheck)) {
+    code = code.replace(oldLinkCheck, newLinkCheck);
+    patchCount++;
+    console.log('  [2/5] Dangling link collection: patched');
+} else {
+    console.log('  [2/5] Dangling link collection: pattern not found, SKIPPED');
+}
 
-\`;
-code = code.replace(
-  'var neighbourhood = new Set();',
-  danglingCode + '      var neighbourhood = new Set();'
-);
+// Insert danglingNodes set initialization after Xu
+// In minified code it's: ,Xu=new Set(eu.keys());
+const oldValidLinks = 'Xu=new Set(eu.keys());';
+const newValidLinks = 'Xu=new Set(eu.keys());var _danglingNodes=new Set();';
+if (code.includes(oldValidLinks)) {
+    code = code.replace(oldValidLinks, newValidLinks);
+    patchCount++;
+    console.log('  [3/5] DanglingNodes init: patched');
+} else {
+    console.log('  [3/5] DanglingNodes init: pattern not found, SKIPPED');
+}
 
-// --- Patch 3: Color dangling nodes lightgray ---
-code = code.replace(
-  'function nodeColor(d) {',
-  'function nodeColor(d) {\\n        if (d.dangling) { return lightgray; }'
-);
+// === Patch 3: Color dangling nodes lightgray ===
+// Original: function \$e(i){var l=i.id===m;return l?Ie:q.has(i.id)||i.id.startsWith(\"tags/\")?ue:ee}
+// Add: if(i.dangling) return te;  (te = lightgray)
+const oldColorFn = 'function \$e(i){var l=i.id===m;return l?Ie:';
+const newColorFn = 'function \$e(i){if(i.dangling)return te;var l=i.id===m;return l?Ie:';
+if (code.includes(oldColorFn)) {
+    code = code.replace(oldColorFn, newColorFn);
+    patchCount++;
+    console.log('  [4/5] Dangling node color: patched');
+} else {
+    console.log('  [4/5] Dangling node color: pattern not found, SKIPPED');
+}
 
-// --- Patch 4: Mark dangling nodes + better display name ---
-code = code.replace(
-  'var text = isTag ? \"#\" + url.substring(5) : data.get(url)?.title || url;',
-  'var text = isTag ? \"#\" + url.substring(5) : data.get(url)?.title || decodeURIComponent(url).replace(/-/g, \" \");'
-);
+// === Patch 4: Better display name for nodes + mark dangling ===
+// Original node text: eu.get(i)?.title||i
+// New: eu.get(i)?.title||decodeURIComponent(i).replace(/-/g,\" \")
+// Also add dangling flag to node
+const oldNodeText = 'eu.get(i)?.title||i';
+const newNodeText = 'eu.get(i)?.title||decodeURIComponent(i).replace(/-/g,\" \")';
+if (code.includes(oldNodeText)) {
+    code = code.replace(oldNodeText, newNodeText);
+    patchCount++;
+    console.log('  [5/5] Node display name: patched');
+} else {
+    console.log('  [5/5] Node display name: pattern not found, SKIPPED');
+}
 
-code = code.replace(
-  /var node = \{(\s+)id: url,(\s+)text: text,/,
-  'var isDangling = danglingNodes.has(url);\\n        var node = {\$1id: url,\$2text: text,\\n          dangling: isDangling,'
-);
+// === Patch 5: Add dangling property to node object ===
+// Minified: v={id:i,text:F,tags:A,
+const oldNodeObj = 'v={id:i,text:F,tags:A,';
+const newNodeObj = 'v={id:i,text:F,dangling:_danglingNodes.has(i),tags:A,';
+if (code.includes(oldNodeObj)) {
+    code = code.replace(oldNodeObj, newNodeObj);
+    patchCount++;
+    console.log('  [6/6] Node dangling flag: patched');
+} else {
+    console.log('  [6/6] Node dangling flag: pattern not found, SKIPPED');
+}
 
-fs.writeFileSync('$GRAPH_FILE', code);
-console.log('Patches applied successfully.');
+fs.writeFileSync('$DIST_FILE', code);
+console.log('');
+console.log('Total patches applied: ' + patchCount + '/6');
+if (patchCount < 4) {
+    console.error('ERROR: Too few patches applied. Graph plugin may have been updated.');
+    process.exit(1);
+}
 "
 
-echo "Graph plugin patched:"
-echo "  - URL decoding for Japanese filenames"
-echo "  - Dangling link nodes shown as gray dots"
+echo "Graph plugin dist patched successfully."
