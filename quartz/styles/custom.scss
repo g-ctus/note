@@ -44,3 +44,14 @@ ul.tags li:has(a[href*="/tags/2025/"]),
 ul.tags li:has(a[href*="/tags/2026/"]) {
   display: none !important;
 }
+
+// Broken wikilinks (link target does not exist)
+a.internal.broken {
+  color: var(--gray);
+  text-decoration-style: dashed;
+  cursor: default;
+
+  &:hover {
+    color: var(--gray);
+  }
+}

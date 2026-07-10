@@ -49,6 +49,9 @@ jobs:
       - name: Install Quartz plugins
         run: npx quartz plugin install
 
+      - name: Patch graph plugin (Japanese URL fix + dangling nodes)
+        run: bash patches/patch-graph.sh
+
       - name: Build Quartz
         run: npx quartz build
 
