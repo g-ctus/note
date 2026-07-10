@@ -14,11 +14,11 @@ date: 2026-01-15
 ---
 
 ## 背景
-[[statusline隠すとかっこよくなることに気づいてしまった... - 輪ごむの空き箱]]や[[思考を減らしコードに集中するための tmux, Neovim 設定]]で紹介されていたステータスラインの完全非表示を実現する．
+statusline隠すとかっこよくなることに気づいてしまった... - 輪ごむの空き箱や思考を減らしコードに集中するための tmux, Neovim 設定で紹介されていたステータスラインの完全非表示を実現する．
 
 Neovimで`laststatus=0`を設定しても、`:sp`や`:copen`で複数ウィンドウを開くとstatuslineが表示される.
 
-[[laststatus = 0 doesn't remove statusline from horizontal splits · Issue 28488 · neovimneovim|仕様らしい]]
+仕様らしい
 
 ## 原因
 `laststatus`オプションの仕様:

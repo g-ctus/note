@@ -13,7 +13,7 @@ tags:
   - Publish/private
 date: 2026-07-08
 ---
-[[Input/Zettelkasten linking for surprising connections.md]]
+Input/Zettelkasten linking for surprising connections.md
 
 ## 問：驚くべきリンクを"偶然"に頼らず作るには？
 
