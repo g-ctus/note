@@ -95,6 +95,19 @@ export default (() => {
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
 
+        {/* Canonical URL */}
+        <link rel="canonical" href={socialUrl} />
+
+        {/* RSS auto-discovery */}
+        {cfg.baseUrl && (
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title={cfg.pageTitle}
+            href={`https://${cfg.baseUrl}/index.xml`}
+          />
+        )}
+
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js
           .filter((resource) => resource.loadTime === "beforeDOMReady")
