@@ -94,7 +94,7 @@ export default (() => {
         <link rel="icon" href={iconPath} />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
-        <meta name="google-site-verification" content="3u3c8UxUxrotSVcneQiFh1dLby_cDp-yA_zgiYYoh44" />
+        <meta name="google-site-verification" content="BRVvdZAE17QhANPUrVlfYJjm5A-UdXauLQHMb4bjvWM" />
 
         {/* Canonical URL */}
         <link rel="canonical" href={socialUrl} />
