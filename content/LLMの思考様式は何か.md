@@ -3,8 +3,7 @@ ID: 202611191257
 created: 2026-11-19 12:57
 title: LLMの思考様式は何か
 aliases: []
-tags: [ 2026/11/19, PERMANENT, アイデア, Publish/private, 感覚的思考 ]
-  - created/2026-11-19
+tags: [ 2026/11/19, PERMANENT, アイデア, Publish/private, 感覚的思考 , created/2026-11-19 ]
 prev: "[[身体性を伴う活動は感覚的思考]]"
 date: 2026-11-19
 ---

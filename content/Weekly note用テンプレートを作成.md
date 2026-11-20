@@ -3,7 +3,6 @@ title: Weekly note用テンプレートを作成
 created: 2026-04-29
 ID: 20260429021623
 tags:
-  - created/2026-04-29
   - PERMANENT
   - Obsidian/Templater
   - Project/ObsidianでPKM
@@ -77,8 +76,7 @@ await tp.file.move(`${targetDir}/${filename}`);
 -%>
 ---
 ID:  <% tp.date.now("YYYYMMDDHHmm") %>
-tags: [ <% tp.date.now("YYYY/MM/DD") %>, weeklyNote]
-  - created/2026-04-29
+tags: [ <% tp.date.now("YYYY/MM/DD") %>, weeklyNote, created/2026-04-29 ]
 ---
 
 
